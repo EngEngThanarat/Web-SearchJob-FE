@@ -1,6 +1,24 @@
 import { useState } from 'react';
-import { TextInput, PasswordInput, Tooltip, Center, Text } from '@mantine/core';
-import { IconInfoCircle } from '@tabler/icons-react';
+import { TextInput, PasswordInput, Tooltip, Center, Text, Button} from '@mantine/core';
+import { IconInfoCircle, IconUser } from '@tabler/icons-react';
+import "./InputTooltip.css";
+
+function Username() {
+  return (
+    <TextInput
+      label="Username"
+      position="top-end"
+      placeholder="Your name"
+      rightSection={
+        <Tooltip label="This is public" position="top-end" withArrow>
+          <div>
+            <IconUser size="1.1rem" stroke={1.5} />
+          </div>
+        </Tooltip>
+      }
+    />
+  );
+}
 
 function TooltipIcon() {
   const rightSection = (
@@ -21,7 +39,7 @@ function TooltipIcon() {
   return (
     <TextInput
       rightSection={rightSection}
-      label="Tooltip shown on icon hover"
+      label="Email"
       placeholder="Your email"
     />
   );
@@ -34,13 +52,13 @@ function TooltipFocus() {
   return (
     <Tooltip
       label={valid ? 'All good!' : 'Password must include at least 6 characters'}
-      position="bottom-start"
+      position="top-end"
       withArrow
       opened={opened}
       color={valid ? 'teal' : undefined}
     >
       <PasswordInput
-        label="Tooltip shown onFocus"
+        label="Password"
         required
         placeholder="Your password"
         onFocus={() => setOpened(true)}
@@ -53,11 +71,21 @@ function TooltipFocus() {
   );
 }
 
+function ButtonEnter() {
+  return (
+    <Button className='button' radius="md">
+      Enter
+    </Button>
+  );
+}
+
 export function InputTooltip() {
   return (
     <>
+      <Username />
       <TooltipIcon />
       <TooltipFocus />
+      <ButtonEnter/>
     </>
   );
 }
