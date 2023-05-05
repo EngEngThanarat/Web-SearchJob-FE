@@ -1,27 +1,31 @@
-import { MantineProvider, Grid, rem, Group } from '@mantine/core';
+import { MantineProvider, Grid, } from '@mantine/core';
 import { HeaderMegaMenu } from './Components/HeaderMegaMenu';
-import { Search } from './Components/Search';
 import { FooterSocial } from './Components/FooterSocial';
 import { BadgeCard } from './Components/BadgeCard';
+import { HeroImageRight } from './Components/HeroImageRight';
+import { GetInTouchSimple } from './Components/GetInTouchSimple';
+import { ModalsProvider } from '@mantine/modals';
 
 export default function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: "dark" }}>
-      <HeaderMegaMenu />
+      <ModalsProvider>
 
-      <Search />
+        <HeaderMegaMenu />
 
-      <Grid justify="center" align="center" columns={22}>
-        <Grid.Col span={6}><BadgeCard /></Grid.Col>
-        <Grid.Col span={6}><BadgeCard /></Grid.Col>
-        <Grid.Col span={6}><BadgeCard /></Grid.Col>
-        <Grid.Col span={6}><BadgeCard /></Grid.Col>
-        <Grid.Col span={6}><BadgeCard /></Grid.Col>
-        <Grid.Col span={6}><BadgeCard /></Grid.Col>
-        <Grid.Col span={6}><BadgeCard /></Grid.Col>
-      </Grid>
+        <HeroImageRight />
 
-      <FooterSocial />
+        <Grid justify="left" align="center" columns={20} pt={60} pl={200}>
+          <Grid.Col span={6}><BadgeCard /></Grid.Col>
+          <Grid.Col span={6}><BadgeCard /></Grid.Col>
+          <Grid.Col span={6}><BadgeCard /></Grid.Col>
+          <Grid.Col span={6}><BadgeCard /></Grid.Col>
+        </Grid>
+
+        <GetInTouchSimple />
+
+        <FooterSocial />
+      </ModalsProvider>
     </MantineProvider>
   );
 }

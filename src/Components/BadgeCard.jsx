@@ -1,30 +1,32 @@
 import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
+import jobOffer from './jobOffer.png'
+import { NavLink } from 'react-router-dom';
 
 export function BadgeCard() {
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
         <Image
-          src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
+          src={jobOffer}
           height={160}
-          alt="Norway"
         />
       </Card.Section>
 
       <Group position="apart" mt="md" mb="xs">
-        <Text weight={500}>Norway Fjord Adventures</Text>
+        <Text weight={500}>ข้อเสนองาน</Text>
         <Badge color="pink" variant="light">
-          On Sale
+          รับสมัคร
         </Badge>
       </Group>
 
       <Text size="sm" color="dimmed">
-        With Fjord Tours you can explore more of the magical fjord landscapes with tours and
-        activities on and around the fjords of Norway
+        รายละเอียดย่อ
       </Text>
 
-      <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-        Book classic tour now
+      <Button to={"/Detail"} variant="light" color="blue" fullWidth mt="md" radius="md">
+        <NavLink to={"/Detail"} >
+          ดูรายละเอียดเพิ่มเติม
+        </NavLink>
       </Button>
     </Card>
   );

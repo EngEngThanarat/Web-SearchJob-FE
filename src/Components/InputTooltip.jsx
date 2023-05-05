@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { TextInput, PasswordInput, Tooltip, Center, Text, Button} from '@mantine/core';
+import { TextInput, PasswordInput, Tooltip, Center, Text, Button, FileInput, Checkbox, Anchor, Modal, Group, Flex } from '@mantine/core';
 import { IconInfoCircle, IconUser } from '@tabler/icons-react';
-import "./InputTooltip.css";
+import { modals } from '@mantine/modals';
 
 function Username() {
   return (
@@ -41,6 +41,7 @@ function TooltipIcon() {
       rightSection={rightSection}
       label="Email"
       placeholder="Your email"
+      mt="md"
     />
   );
 }
@@ -71,21 +72,65 @@ function TooltipFocus() {
   );
 }
 
-function ButtonEnter() {
+function InputFile() {
+  return <FileInput mt="md" label="Upload files" placeholder="Upload files" accept="image/png,image/jpeg" />;
+}
+
+function Check() {
   return (
-    <Button className='button' radius="md">
-      Enter
-    </Button>
+    <Checkbox
+      label="I agree to confirm privacy"
+      radius="md"
+      mt="md"
+    />
+  );
+}
+
+function AnchorRegister() {
+
+  const openModal = () => {
+    modals.open({
+      title: "Register",
+      centered: true,
+      children: (<>
+        <Username />
+        <TooltipIcon />
+        <TooltipFocus />
+        <InputFile />
+        <Check />
+
+        <Flex justify={'end'}>
+          <Button radius="md" onClick={() => modals.closeAll()}>
+            Enter
+          </Button>
+        </Flex>
+      </>
+      )
+    })
+  }
+
+  return (
+    <>
+      <Group position="apart">
+        <Anchor size="sm" component="button" mt="md" Anchor type="button" onClick={openModal}>
+          Don't have an account? Register
+        </Anchor>
+        <Flex justify={'end'}>
+          <Button radius="md" mt={10}>
+            Enter
+          </Button>
+        </Flex>
+      </Group>
+    </>
   );
 }
 
 export function InputTooltip() {
   return (
     <>
-      <Username />
       <TooltipIcon />
       <TooltipFocus />
-      <ButtonEnter/>
+      <AnchorRegister />
     </>
   );
 }
