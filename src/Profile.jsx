@@ -1,7 +1,6 @@
 import { MantineProvider } from '@mantine/core';
 import { HeaderMegaMenu } from './Components/HeaderMegaMenu';
 import { FooterSocial } from './Components/FooterSocial';
-import { ModalsProvider } from '@mantine/modals';
 import { ProfileTitle } from './Components/ProfileTitle'
 import { ProfileText } from './Components/ProfileText'
 

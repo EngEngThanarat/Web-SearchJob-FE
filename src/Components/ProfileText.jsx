@@ -1,112 +1,91 @@
-import { TextInput, SimpleGrid, Button, Group, rem, FileInput } from '@mantine/core';
+import { Button, Container, Table, Text } from '@mantine/core';
 import { useId } from '@mantine/hooks';
-import { IMaskInput } from 'react-imask';
-import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import React, { useState } from "react";
-import { IconUpload } from '@tabler/icons-react';
+import React, { useState, useEffect } from "react";
+import useAxios from './lib/useAxios'
 
 export function ProfileText() {
 
   const id = useId();
-  const [droppedImage, setDroppedImage] = useState(null);
+  
+  const [History, setHistory] = useState([]);
+
+  useEffect(() => {
+    fetchHistory();
+  }, [])
+
+  const fetchHistory = async () => {
+    try {
+      const res = await useAxios.get('/History');
+      setHistory(res.data);
+      console.log(History);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  
+
+
+  const UpdateRecruitment = async (id,BusinessName) => {
+    try {
+      const res = await useAxios.put(`/History/${id}`, {
+        status: "ปิดรับสมัคร",
+      })
+      console.log("value" + id);
+
+      console.log(BusinessName);
+      const check = await useAxios.delete(`/company/${BusinessName}`)
+      console.log("value Delete success" + BusinessName);
+
+      alert("Update success");
+    } catch (e) {
+      alert("somthing error");
+    }
+  }
+
+  const UpdateNoRecruitment = async (id) => {
+    try {
+      const res = await useAxios.put(`/History/${id}`, {
+        status: "รับสมัคร",
+      })
+      const check = await useAxios.delete(`/History/${id}`)
+      console.log("value Delete success" + id);
+      alert("Update success");
+    } catch (e) {
+      alert("somthing error");
+    }
+  }
+
 
   return (
     <div>
+      <Text size={24} pt={20} pl={260}>Reply</Text>
+      <Container size={'70%'} pt={20} pb={20}>
+        <Table horizontalSpacing="xl" withBorder >
+          <thead>
+            <tr>
+              <th>ลำดับ</th>
+              <th>ชื่อบริษัท</th>
+              <th>ชื่อผู้สมัคร</th>
+              <th>สถานะ</th>
+              <th>รับ</th>
+              <th>ไม่รับ</th>
+            </tr>
+          </thead>
+          <tbody>{
+            History.length > 0 && History.map((element) => (
+              <tr key={element.BusinessName}>
+                <td>{element.id}</td>
+                <td>{element.UserEmail}</td>
+                <td>{element.BusinessName}</td>
+                <td>{element.status}</td>
+                <td><Button onClick={(e) => UpdateRecruitment(element.id,element.BusinessName)}>รับ</Button></td>
+                <td><Button onClick={(e) => UpdateNoRecruitment(element.id,element.BusinessName)}>ไม่รับ</Button></td>
+              </tr>
+            ))
+            }</tbody>
+        </Table>
+      </Container>
 
-      <Dropzone
-        accept={IMAGE_MIME_TYPE}
-        sx={{
-          display: 'flex',
-          flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          position: 'relative',
-          width: 350,
-          height: 350,
-          marginTop: 20,
-          marginLeft: 600,
-        }}
-        onDrop={(files) => {
-          setDroppedImage(files)
-        }}
-        style={{
-          backgroundImage: droppedImage ? `url(${URL.createObjectURL(droppedImage[0])})` : undefined,
-          backgroundSize: 'cover',
-        }}
-      >
-      </Dropzone>
-
-      <SimpleGrid pl={250} pr={250} cols={2} mt="xl" breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-        <TextInput
-          label="Name"
-          placeholder="Your name"
-          name="name"
-          variant="filled"
-        />
-        <TextInput
-          label="Last Name"
-          placeholder="Your lastname"
-          name="lastname"
-          variant="filled"
-        />
-      </SimpleGrid>
-
-      <TextInput
-        pl={250} pr={250} pt={10}
-        label="Address"
-        placeholder="Your address"
-        name="address"
-        variant="filled"
-      />
-
-      <SimpleGrid pl={250} pr={250} cols={2} mt="xl" breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-        <TextInput
-          label="Telephone Number"
-          placeholder="Your phone"
-          component={IMaskInput}
-          mask="+66 0-0000-0000"
-          id={id}
-          variant="filled"
-        />
-
-        <TextInput
-          label="Nationality"
-          placeholder="Your nationality"
-          name="nationality"
-          variant="filled"
-        />
-      </SimpleGrid>
-
-      <FileInput
-        pl={250} pr={250} pt={10}
-        label="Your resume"
-        placeholder="Your resume"
-        icon={<IconUpload size={rem(14)}
-          variant="filled" />} />
-
-      <Group position="right" pt={20} pr={250} pb={20}>
-        <Button
-          styles={(theme) => ({
-            root: {
-              backgroundColor: '#1971c2',
-              border: 0,
-              height: rem(42),
-              width: rem(200),
-              paddingLeft: rem(20),
-              paddingRight: rem(20),
-              '&:not([data-disabled])': theme.fn.hover({
-                color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-              }),
-            },
-
-            leftIcon: {
-              marginRight: theme.spacing.md,
-            },
-          })}
-        >
-          Confirm
-        </Button>
-      </Group>
     </div>
   );
 }

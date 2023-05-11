@@ -5,14 +5,24 @@ import {
   Button,
   Box,
   rem,
-  ActionIcon ,
+  ActionIcon,
   Avatar,
+  Menu,
+  Text,
+  useMantineTheme
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import logo from './logo.png'
-import { InputTooltip } from './InputTooltip';
+import InputTooltip from './InputTooltip';
 import { modals } from '@mantine/modals';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
+import useAxios from './lib/useAxios'
+import { useEffect, useState } from 'react';
+import {
+  IconPackage,
+  IconChevronDown,
+} from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -43,11 +53,42 @@ export function HeaderMegaMenu() {
 
   const { classes, theme } = useStyles();
 
+  const user = JSON.parse(localStorage.getItem("user"))
+  const username = user?.Email;
+  const [data, setData] = useState([]);
+
+  const [Anchor, setAnchor] = useState(null);
+
+  const Navigate = useNavigate();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const res = await useAxios.get(`/users/${Email}`);
+      setData(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const openModal = () => modals.open({
     title: "Login",
     centered: true,
     children: (<InputTooltip />)
   })
+
+  const handleClick = (event) => {
+    setAnchor(event.currentTarget);
+  }
+
+  const handlelogout = async () => {
+    localStorage.removeItem("user");
+    alert("ออกจากระบบ");
+    Navigate(0);
+  }
 
   return (
     <Box>
@@ -66,13 +107,29 @@ export function HeaderMegaMenu() {
               Profile
             </NavLink>
           </Group>
-          <Button onClick={openModal} >Login</Button>
-          {/* <ActionIcon>
-          <Avatar
-                radius="xl"
-                src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-              />
-          </ActionIcon> */}
+
+          {user ? (
+            [<Menu
+              transitionProps={{ transition: 'pop-top-right' }}
+              position="top-end"
+              withinPortal
+            >
+              <Menu.Target>
+                <Avatar src="https://th.bing.com/th/id/R.739297c3ec0f727c32c8135aca85df15?rik=wVGVVO1tnf7f%2bg&pid=ImgRaw&r=0" onClick={handleClick}></Avatar>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item >
+                  <Button variant='subtle' onClick={handlelogout} >
+                    Log out
+                  </Button>
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+            ]
+          ) : (
+            <Button onClick={openModal}>Login</Button>
+          )
+          }
 
         </Group>
       </Header>

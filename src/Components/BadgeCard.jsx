@@ -23,11 +23,11 @@ export function BadgeCard() {
         รายละเอียดย่อ
       </Text>
 
-      <Button to={"/Detail"} variant="light" color="blue" fullWidth mt="md" radius="md">
-        <NavLink to={"/Detail"} >
+      <NavLink to={"/Detail"} >
+        <Button to={"/Detail"} variant="light" color="blue" fullWidth mt="md" radius="md">
           ดูรายละเอียดเพิ่มเติม
-        </NavLink>
-      </Button>
+        </Button>
+      </NavLink>
     </Card>
   );
 }

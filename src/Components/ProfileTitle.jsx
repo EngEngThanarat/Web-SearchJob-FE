@@ -1,5 +1,4 @@
 import { createStyles, Container, Text, Center, rem } from '@mantine/core';
-import { GithubIcon } from '@mantine/ds';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -53,16 +52,16 @@ export function ProfileTitle() {
   return (
     <div className={classes.wrapper}>
       <Center>
-        <Container size={700} className={classes.inner}>
+        <Container size={700} className={classes.inner} pr={130}>
           <h1 className={classes.title}>
             <Text component="span" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} inherit>
-              Pro
+              Re
             </Text>
-            file
+            ply
           </h1>
 
-          <Text className={classes.description} color="dimmed">
-            Edit your profile to make it more interesting.
+          <Text className={classes.description} color="dimmed" pl={100}>
+            Looking and Edit your Reply
           </Text>
 
         </Container>
