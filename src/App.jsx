@@ -187,7 +187,7 @@ export default function App() {
               <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
               <img width={'100%'} style={{objectFit:'cover'}}
-                src={'JobOffer.png'}
+                src={'https://www.mandate-ess.com/wp-content/uploads/2020/07/How-to-Decline-a-Job-Offer-Properly.jpg'}
                 height={160}
               />
             </Card.Section>
