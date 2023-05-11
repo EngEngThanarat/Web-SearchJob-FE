@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import "./Components/Search.css";
 import { createStyles, Container, Title, Text, Button, rem, TextInput } from '@mantine/core';
 import { Card, Image, Badge, Group } from '@mantine/core';
-import jobOffer from 'jobOffer.png'
+// import jobOffer from 'jobOffer.png'
 import React from "react";
 import { isAxiosError } from 'axios';
 
@@ -187,7 +187,7 @@ export default function App() {
               <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
               <Image
-                src={jobOffer}
+                src={'JobOffer.png'}
                 height={160}
               />
             </Card.Section>
