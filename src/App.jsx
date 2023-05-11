@@ -187,7 +187,7 @@ export default function App() {
               <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
               <Image
-                src={jobOffer}
+                src={jobOffer.src}
                 height={160}
               />
             </Card.Section>
