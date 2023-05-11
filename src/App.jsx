@@ -186,7 +186,7 @@ export default function App() {
             <Grid.Col span={3}>
               <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-              <Image
+              <img width={'100%'} style={{objectFit:'cover'}}
                 src={'JobOffer.png'}
                 height={160}
               />
