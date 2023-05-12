@@ -2,7 +2,6 @@ import { Button, Container, Table, Text } from '@mantine/core';
 import { useId } from '@mantine/hooks';
 import React, { useState, useEffect } from "react";
 import useAxios from './lib/useAxios'
-import { useNavigate } from 'react-router-dom';
 
 export function ProfileText() {
 
@@ -23,8 +22,6 @@ export function ProfileText() {
       console.log(e);
     }
   };
-  
-  const Navigate = useNavigate();
 
   const UpdateRecruitment = async (id,BusinessName) => {
     try {
@@ -51,7 +48,6 @@ export function ProfileText() {
       const check = await useAxios.delete(`/History/${id}`)
       console.log("value Delete success" + id);
       alert("Update success");
-      Navigate(0);
     } catch (e) {
       alert("somthing error");
     }

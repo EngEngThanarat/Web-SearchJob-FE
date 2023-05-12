@@ -2,7 +2,6 @@ import { TextInput, PasswordInput, Tooltip, Center, Text, Button, FileInput, Che
 import { IconInfoCircle, IconUser } from '@tabler/icons-react';
 import { modals } from '@mantine/modals';
 import useAxios from './lib/useAxios'
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { isAxiosError } from 'axios';
 
@@ -35,8 +34,6 @@ export default function InputTooltip() {
   const [telephone, settelophone] = useState("");
   const [Nationality, setNationality] = useState("");
 
-  const Navigate = useNavigate();
-
   const handlelogin = async () => {
     try {
 
@@ -47,7 +44,6 @@ export default function InputTooltip() {
       alert("login success");
       console.log(res.data);
       localStorage.setItem("user", JSON.stringify(res.data));
-      Navigate(0);
     } catch (e) {
       if (isAxiosError(e)) {
         const status = e.response.status;
